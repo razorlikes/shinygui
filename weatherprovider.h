@@ -40,7 +40,7 @@ public:
     _weatherDetailed getWeather5Days() const;
 
 private:
-    QNetworkAccessManager *mngr;
+    QNetworkAccessManager *net;
 
     QTimer *requestTimer;
 

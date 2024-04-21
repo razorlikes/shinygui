@@ -10,10 +10,10 @@
 WeatherProvider::WeatherProvider(QObject *parent)
     : QObject{parent}
 {
-    mngr = new QNetworkAccessManager(this);
-    mngr->get(QNetworkRequest(QUrl(OWM_LINK)));
+    net = new QNetworkAccessManager(this);
+    net->get(QNetworkRequest(QUrl(OWM_LINK)));
 
-    connect(mngr, SIGNAL(finished(QNetworkReply*)), this, SLOT(requestFinished(QNetworkReply*)));
+    connect(net, SIGNAL(finished(QNetworkReply*)), this, SLOT(requestFinished(QNetworkReply*)));
 
     requestTimer = new QTimer(this);
     requestTimer->setInterval(UPDATE_INTERVAL);
@@ -24,7 +24,7 @@ WeatherProvider::WeatherProvider(QObject *parent)
 void WeatherProvider::updateWeather()
 {
     qDebug() << "updateWeather called";
-    mngr->get(QNetworkRequest(QUrl(OWM_LINK)));
+    net->get(QNetworkRequest(QUrl(OWM_LINK)));
 }
 
 void WeatherProvider::requestFinished(QNetworkReply *apiReply)
@@ -32,10 +32,10 @@ void WeatherProvider::requestFinished(QNetworkReply *apiReply)
     qDebug() << "requestFinished called";
     QJsonDocument replyJSON = QJsonDocument::fromJson(apiReply->readAll());
 
-    weatherCurrent.curTemp = QString::number(replyJSON.object()["current"].toObject()["temp"].toDouble());
+    weatherCurrent.curTemp = QString::number(replyJSON.object()["current"].toObject()["temp"].toDouble(), 'f', 1);
     weatherCurrent.curWeather = replyJSON.object()["current"].toObject()["weather"].toArray().at(0).toObject()["description"].toString();
-    weatherCurrent.curHigh = QString::number(replyJSON.object()["daily"].toArray().at(0).toObject()["temp"].toObject()["max"].toDouble());
-    weatherCurrent.curLow = QString::number(replyJSON.object()["daily"].toArray().at(0).toObject()["temp"].toObject()["min"].toDouble());
+    weatherCurrent.curHigh = QString::number(replyJSON.object()["daily"].toArray().at(0).toObject()["temp"].toObject()["max"].toDouble(), 'f', 1);
+    weatherCurrent.curLow = QString::number(replyJSON.object()["daily"].toArray().at(0).toObject()["temp"].toObject()["min"].toDouble(), 'f', 1);
 
     switch (replyJSON.object()["current"].toObject()["weather"].toArray().at(0).toObject()["icon"].toString().first(2).toInt()) {
     case 1:
