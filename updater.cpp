@@ -19,7 +19,7 @@ Updater::Updater(QWidget *parent) :
     process->setWorkingDirectory("/opt/shinygui/updater/compiled");
     connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(processOutput()));
     connect(process, SIGNAL(readyReadStandardError()), this, SLOT(processOutput()));
-    connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished()));
+    connect(process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processFinished()));
 
     //commands.append(QPair<QString, QString>("### Creating temporary update folder...\n", "mkdir /opt/shinygui/temp"));
     //commands.append(QPair<QString, QString>("### Downloading update files...\n",         "wget https://github.com/razorlikes/shinygui/archive/refs/heads/main.zip -O /opt/shinygui/temp/update_temp.zip --limit-rate=1M -nv"));

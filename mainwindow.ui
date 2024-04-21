@@ -823,7 +823,7 @@ QProgressBar {
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>icons/184-power-cord.png</normaloff>icons/184-power-cord.png</iconset>
+      <normaloff>icons/267-plus.png</normaloff>icons/267-plus.png</iconset>
     </property>
     <property name="iconSize">
      <size>

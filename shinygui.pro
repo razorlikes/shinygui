@@ -17,11 +17,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         epdcontrol.cpp \
         mainwindow.cpp \
+        settingsprovider.cpp \
         updater.cpp \
         weatherprovider.cpp
 
 HEADERS  += mainwindow.h \
     epdcontrol.h \
+    settingsprovider.h \
     updater.h \
     weatherprovider.h
 
